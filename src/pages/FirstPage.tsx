@@ -47,6 +47,7 @@ const FirstPage: React.FC = () => {
             value={name}
             onChange={(e) => setName(e.target.value)}
             variant="outlined"
+            required
             fullWidth
           />
           <TextField
@@ -54,6 +55,7 @@ const FirstPage: React.FC = () => {
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             variant="outlined"
+            required
             fullWidth
           />
           <TextField
@@ -61,6 +63,7 @@ const FirstPage: React.FC = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             variant="outlined"
+            required
             fullWidth
           />
           <Button
