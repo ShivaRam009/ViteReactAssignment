@@ -13,6 +13,16 @@ const SecondPage: React.FC = () => {
       alert('Please enter your details first');
       navigate('/');
     }
+
+    const handleBeforeUnload = () => {
+      localStorage.clear();
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
   }, [navigate]);
 
   return (

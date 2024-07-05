@@ -1,13 +1,20 @@
 // src/pages/FirstPage.tsx
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { TextField, Button, Box, Typography, Container } from '@mui/material';
+import { TextField, Button, Box, Typography, Container, Paper } from '@mui/material';
 
 const FirstPage: React.FC = () => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const userDetails = localStorage.getItem('userDetails');
+    if (userDetails) {
+      navigate('/second');
+    }
+  }, [navigate]);
 
   const handleSubmit = () => {
     if (name && phone && email) {
@@ -19,59 +26,52 @@ const FirstPage: React.FC = () => {
   };
 
   return (
-    <Container maxWidth="sm">
-      <Box
-        component="form"
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 3,
-          mt: 5,
-          p: 3,
-          boxShadow: 3,
-          borderRadius: 2,
-          bgcolor: 'background.paper',
-        }}
-      >
+    <Container maxWidth="sm" sx={{ mt: 4 }}>
+      <Paper elevation={3} sx={{ p: 4 }}>
         <Typography variant="h4" component="h1" gutterBottom>
-          User Details
+          User Information
         </Typography>
-        <TextField 
-          label="Name" 
-          value={name} 
-          onChange={(e) => setName(e.target.value)} 
-          variant="outlined" 
-          fullWidth 
-          required
-        />
-        <TextField 
-          label="Phone" 
-          value={phone} 
-          onChange={(e) => setPhone(e.target.value)} 
-          variant="outlined" 
-          fullWidth 
-          required
-        />
-        <TextField 
-          label="Email" 
-          value={email} 
-          onChange={(e) => setEmail(e.target.value)} 
-          variant="outlined" 
-          fullWidth 
-          required
-        />
-        <Button 
-          variant="contained" 
-          onClick={handleSubmit} 
-          sx={{ 
-            py: 1.5, 
-            mt: 2 
+        <Typography variant="body1" gutterBottom>
+          Please fill in your details below:
+        </Typography>
+        <Box
+          component="form"
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 2,
           }}
-          color="primary"
         >
-          Submit
-        </Button>
-      </Box>
+          <TextField
+            label="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            variant="outlined"
+            fullWidth
+          />
+          <TextField
+            label="Phone"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            variant="outlined"
+            fullWidth
+          />
+          <TextField
+            label="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            variant="outlined"
+            fullWidth
+          />
+          <Button
+            variant="contained"
+            onClick={handleSubmit}
+            sx={{ mt: 2, alignSelf: 'center' }}
+          >
+            Submit
+          </Button>
+        </Box>
+      </Paper>
     </Container>
   );
 };
